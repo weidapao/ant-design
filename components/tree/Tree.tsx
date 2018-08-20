@@ -34,11 +34,12 @@ export interface AntTreeNodeProps {
   checked?: boolean;
   expanded?: boolean;
   selected?: boolean;
+  selectable?: boolean;
   icon?: ((treeNode: AntdTreeNodeAttribute) => React.ReactNode) | React.ReactNode;
   children?: React.ReactNode;
 }
 
-export interface AntTreeNode extends React.Component<AntTreeNodeProps, {}> {}
+export interface AntTreeNode extends React.Component<AntTreeNodeProps, {}> { }
 
 export interface AntTreeNodeBaseEvent {
   node: AntTreeNode;
@@ -99,7 +100,7 @@ export interface TreeProps {
   /** 展开/收起节点时触发 */
   onExpand?: (expandedKeys: string[], info: AntTreeNodeExpandedEvent) => void | PromiseLike<any>;
   /** 点击复选框触发 */
-  onCheck?: (checkedKeys: string[], e: AntTreeNodeCheckedEvent) => void;
+  onCheck?: (checkedKeys: string[] | { checked: string[]; halfChecked: string[] }, e: AntTreeNodeCheckedEvent) => void;
   /** 点击树节点触发 */
   onSelect?: (selectedKeys: string[], e: AntTreeNodeSelectedEvent) => void;
   /** 单击树节点触发 */
@@ -142,7 +143,10 @@ export default class Tree extends React.Component<TreeProps, any> {
     prefixCls: 'ant-tree',
     checkable: false,
     showIcon: false,
-    openAnimation: animation,
+    openAnimation: {
+      ...animation,
+      appear: null,
+    },
   };
 
   render() {

@@ -15,9 +15,10 @@ if (typeof window !== 'undefined') {
 }
 
 import * as React from 'react';
+import { polyfill } from 'react-lifecycles-compat';
 import classNames from 'classnames';
 import omit from 'omit.js';
-import PropTypes from 'prop-types';
+import * as PropTypes from 'prop-types';
 import Icon from '../icon';
 import isNumeric from '../_util/isNumeric';
 
@@ -67,7 +68,7 @@ const generateId = (() => {
   };
 })();
 
-export default class Sider extends React.Component<SiderProps, SiderState> {
+class Sider extends React.Component<SiderProps, SiderState> {
   static __ANT_LAYOUT_SIDER: any = true;
 
   static defaultProps = {
@@ -89,6 +90,15 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
   static contextTypes = {
     siderHook: PropTypes.object,
   };
+
+  static getDerivedStateFromProps(nextProps: SiderProps) {
+    if ('collapsed' in nextProps) {
+      return {
+        collapsed: nextProps.collapsed,
+      };
+    }
+    return null;
+  }
 
   private mql: MediaQueryList;
   private uniqueId: string;
@@ -120,14 +130,6 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
       siderCollapsed: this.state.collapsed,
       collapsedWidth: this.props.collapsedWidth,
     };
-  }
-
-  componentWillReceiveProps(nextProps: SiderProps) {
-    if ('collapsed' in nextProps) {
-      this.setState({
-        collapsed: nextProps.collapsed,
-      });
-    }
   }
 
   componentDidMount() {
@@ -234,3 +236,7 @@ export default class Sider extends React.Component<SiderProps, SiderState> {
     );
   }
 }
+
+polyfill(Sider);
+
+export default Sider;

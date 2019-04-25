@@ -3,14 +3,17 @@ import * as PropTypes from 'prop-types';
 import { polyfill } from 'react-lifecycles-compat';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
-import Checkbox from './Checkbox';
+import omit from 'omit.js';
+import Checkbox, { CheckboxChangeEvent } from './Checkbox';
+import { ConfigConsumer, ConfigConsumerProps } from '../config-provider';
 
 export type CheckboxValueType = string | number | boolean;
 
 export interface CheckboxOptionType {
-  label: string;
+  label: React.ReactNode;
   value: CheckboxValueType;
   disabled?: boolean;
+  onChange?: (e: CheckboxChangeEvent) => void;
 }
 
 export interface AbstractCheckboxGroupProps {
@@ -22,6 +25,7 @@ export interface AbstractCheckboxGroupProps {
 }
 
 export interface CheckboxGroupProps extends AbstractCheckboxGroupProps {
+  name?: string;
   defaultValue?: Array<CheckboxValueType>;
   value?: Array<CheckboxValueType>;
   onChange?: (checkedValue: Array<CheckboxValueType>) => void;
@@ -42,7 +46,6 @@ export interface CheckboxGroupContext {
 class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupState> {
   static defaultProps = {
     options: [],
-    prefixCls: 'ant-checkbox',
   };
 
   static propTypes = {
@@ -69,7 +72,7 @@ class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupSta
     super(props);
     this.state = {
       value: props.value || props.defaultValue || [],
-     };
+    };
   }
 
   getChildContext() {
@@ -78,14 +81,15 @@ class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupSta
         toggleOption: this.toggleOption,
         value: this.state.value,
         disabled: this.props.disabled,
+        name: this.props.name,
       },
     };
   }
 
   shouldComponentUpdate(nextProps: CheckboxGroupProps, nextState: CheckboxGroupState) {
-    return !shallowEqual(this.props, nextProps) ||
-      !shallowEqual(this.state, nextState);
+    return !shallowEqual(this.props, nextProps) || !shallowEqual(this.state, nextState);
   }
+
   getOptions() {
     const { options } = this.props;
     // https://github.com/Microsoft/TypeScript/issues/7960
@@ -99,10 +103,11 @@ class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupSta
       return option;
     });
   }
+
   toggleOption = (option: CheckboxOptionType) => {
     const optionIndex = this.state.value.indexOf(option.value);
     const value = [...this.state.value];
-    if (optionIndex === - 1) {
+    if (optionIndex === -1) {
       value.push(option.value);
     } else {
       value.splice(optionIndex, 1);
@@ -114,11 +119,16 @@ class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupSta
     if (onChange) {
       onChange(value);
     }
-  }
-  render() {
+  };
+
+  renderGroup = ({ getPrefixCls }: ConfigConsumerProps) => {
     const { props, state } = this;
-    const { prefixCls, className, style, options } = props;
+    const { prefixCls: customizePrefixCls, className, style, options, ...restProps } = props;
+    const prefixCls = getPrefixCls('checkbox', customizePrefixCls);
     const groupPrefixCls = `${prefixCls}-group`;
+
+    const domProps = omit(restProps, ['children', 'defaultValue', 'value', 'onChange', 'disabled']);
+
     let children = props.children;
     if (options && options.length > 0) {
       children = this.getOptions().map(option => (
@@ -128,7 +138,7 @@ class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupSta
           disabled={'disabled' in option ? option.disabled : props.disabled}
           value={option.value}
           checked={state.value.indexOf(option.value) !== -1}
-          onChange={() => this.toggleOption(option)}
+          onChange={option.onChange}
           className={`${groupPrefixCls}-item`}
         >
           {option.label}
@@ -138,10 +148,14 @@ class CheckboxGroup extends React.Component<CheckboxGroupProps, CheckboxGroupSta
 
     const classString = classNames(groupPrefixCls, className);
     return (
-      <div className={classString} style={style}>
+      <div className={classString} style={style} {...domProps}>
         {children}
       </div>
     );
+  };
+
+  render() {
+    return <ConfigConsumer>{this.renderGroup}</ConfigConsumer>;
   }
 }
 

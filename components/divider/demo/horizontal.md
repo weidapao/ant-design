@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-Divider default type is `horizontal`. Support inner text inside Divider.
+Divider is `horizontal` by default. You can add text within Divider.
 
 ````jsx
 import { Divider } from 'antd';
@@ -26,5 +26,6 @@ ReactDOM.render(
     <Divider dashed />
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nonne merninisti licere mihi ista probare, quae sunt a te dicta? Refert tamen, quo modo.</p>
   </div>,
-  mountNode);
+  mountNode
+);
 ````

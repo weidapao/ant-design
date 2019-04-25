@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-Image, Icon and letter are supported, and the latter two kinds avatar can have custom colors and background colors.
+Image, Icon and letter are supported, and the latter two kinds of avatar can have custom colors and background colors.
 
 ````jsx
 import { Avatar } from 'antd';
@@ -25,7 +25,8 @@ ReactDOM.render(
     <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf' }}>U</Avatar>
     <Avatar style={{ backgroundColor: '#87d068' }} icon="user" />
   </div>,
-  mountNode);
+  mountNode
+);
 ````
 
 <style>

@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-Usually used for messages remind.
+Usually used for reminders and notifications.
 
 ````jsx
 import { Avatar, Badge } from 'antd';
@@ -25,5 +25,6 @@ ReactDOM.render(
       <Badge dot><Avatar shape="square" icon="user" /></Badge>
     </span>
   </div>,
-  mountNode);
+  mountNode
+);
 ````

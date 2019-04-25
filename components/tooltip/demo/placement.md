@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-The ToolTip has 12 placements choice.
+There are 12 placement options available.
 
 ````jsx
 import { Tooltip, Button } from 'antd';
@@ -67,7 +67,8 @@ ReactDOM.render(
       </Tooltip>
     </div>
   </div>,
-  mountNode);
+  mountNode
+);
 ````
 
 <style>

@@ -42,27 +42,24 @@ class MultiDrawer extends React.Component {
           title="Multi-level drawer"
           className="test_drawer"
           width={520}
-          closable={false}
           onClose={this.onClose}
           getContainer={false}
           placement={placement}
           visible={visible}
         >
           <Button type="primary" id="open_two_drawer" onClick={this.showChildrenDrawer}>
-              Two-level drawer
+            Two-level drawer
           </Button>
           <Drawer
             title="Two-level Drawer"
             width={320}
-            closable={false}
+            className="Two-level"
             getContainer={false}
             placement={placement}
             onClose={this.onChildrenDrawerClose}
             visible={childrenDrawer}
           >
-            <div id="two_drawer_text">
-              This is two-level drawer
-            </div>
+            <div id="two_drawer_text">This is two-level drawer</div>
           </Drawer>
           <div
             style={{
@@ -105,12 +102,23 @@ describe('Drawer', () => {
     expect(wrapper.find('#two_drawer_text').exists()).toBe(true);
   });
 
-  it('render right MultiDrawer', () => {
+  it('render left MultiDrawer', () => {
     const wrapper = mount(<MultiDrawer placement="left" />);
     wrapper.find('button#open_drawer').simulate('click');
     wrapper.find('button#open_two_drawer').simulate('click');
     const translateX = wrapper.find('.ant-drawer.test_drawer').get(0).props.style.transform;
     expect(translateX).toEqual('translateX(180px)');
+    expect(wrapper.find('#two_drawer_text').exists()).toBe(true);
+    wrapper.find('.Two-level .ant-drawer-close').simulate('click');
+    expect(wrapper.state().childrenDrawer).toBe(false);
+  });
+
+  it('render top MultiDrawer', () => {
+    const wrapper = mount(<MultiDrawer placement="top" />);
+    wrapper.find('button#open_drawer').simulate('click');
+    wrapper.find('button#open_two_drawer').simulate('click');
+    const translateX = wrapper.find('.ant-drawer.test_drawer').get(0).props.style.transform;
+    expect(translateX).toEqual('translateY(180px)');
     expect(wrapper.find('#two_drawer_text').exists()).toBe(true);
   });
 });

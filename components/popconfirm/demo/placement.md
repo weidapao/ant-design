@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-There are 12 `placement` options available. Use `arrowPointAtCenter` if you want arrow point at the center of target.
+There are 12 `placement` options available. Use `arrowPointAtCenter` if you want the arrow to point at the center of target.
 
 ````jsx
 import { Popconfirm, message, Button } from 'antd';
@@ -69,7 +69,8 @@ ReactDOM.render(
       </Popconfirm>
     </div>
   </div>,
-  mountNode);
+  mountNode
+);
 ````
 
 <style>

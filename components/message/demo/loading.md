@@ -2,7 +2,7 @@
 order: 3
 title:
   zh-CN: 加载中
-  en-US: Message of loading
+  en-US: Message with loading indicator
 ---
 
 ## zh-CN
@@ -24,5 +24,6 @@ const success = () => {
 
 ReactDOM.render(
   <Button onClick={success}>Display a loading indicator</Button>,
-  mountNode);
+  mountNode
+);
 ````

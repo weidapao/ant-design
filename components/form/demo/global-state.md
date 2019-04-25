@@ -17,12 +17,13 @@ We can store form data into upper component or [Redux](https://github.com/reactj
 
 **Note:** You must wrap field data with `Form.createFormField` in `mapPropsToFields`.
 
+**Note:** Here, errors are passed to higher order component in `onFieldsChange` and passed back in `mapPropsToFields`.
+
 ````jsx
 import { Form, Input } from 'antd';
 
-const FormItem = Form.Item;
-
 const CustomizedForm = Form.create({
+  name: 'global_state',
   onFieldsChange(props, changedFields) {
     props.onChange(changedFields);
   },
@@ -41,11 +42,11 @@ const CustomizedForm = Form.create({
   const { getFieldDecorator } = props.form;
   return (
     <Form layout="inline">
-      <FormItem label="Username">
+      <Form.Item label="Username">
         {getFieldDecorator('username', {
           rules: [{ required: true, message: 'Username is required!' }],
         })(<Input />)}
-      </FormItem>
+      </Form.Item>
     </Form>
   );
 });

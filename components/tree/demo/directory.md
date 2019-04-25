@@ -17,11 +17,11 @@ Built-in directory tree. `multiple` support `ctrl(Windows)` / `command(Mac)` sel
 import { Tree } from 'antd';
 
 const DirectoryTree = Tree.DirectoryTree;
-const TreeNode = Tree.TreeNode;
+const { TreeNode } = Tree;
 
 class Demo extends React.Component {
-  onSelect = () => {
-    console.log('Trigger Select');
+  onSelect = (keys, event) => {
+    console.log('Trigger Select', keys, event);
   };
 
   onExpand = () => {

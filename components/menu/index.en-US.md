@@ -28,12 +28,12 @@ More layouts with navigation: [layout](/components/layout).
 
 | Param | Description | Type | Default value |
 | ----- | ----------- | ---- | ------------- |
-| defaultOpenKeys | array with the keys of default opened sub menus |  |  |
+| defaultOpenKeys | array with the keys of default opened sub menus | string\[] |  |
 | defaultSelectedKeys | array with the keys of default selected menu items | string\[] |  |
 | forceSubMenuRender | render submenu into DOM before it shows | boolean | false |
 | inlineCollapsed | specifies the collapsed status when menu is inline mode | boolean | - |
 | inlineIndent | indent px of inline menu item on each level | number | 24 |
-| mode | type of the menu; `vertical`, `horizontal`, and `inline` modes are supported | string: `vertical` \| `vertical-right` \| `horizontal` \| `inline` | `vertical` |
+| mode | type of the menu; `vertical`, `horizontal`, and `inline` modes are supported | string: `vertical` \| `horizontal` \| `inline` | `vertical` |
 | multiple | Allow selection of multiple items | boolean | false |
 | openKeys | array with the keys of currently opened sub menus | string\[] |  |
 | selectable | allow selecting menu items | boolean | true |
@@ -46,6 +46,7 @@ More layouts with navigation: [layout](/components/layout).
 | onDeselect | callback executed when a menu item is deselected, only supported for multiple mode | function({ item, key, selectedKeys }) | - |
 | onOpenChange | called when open/close sub menu | function(openKeys: string\[]) | noop |
 | onSelect | callback executed when a menu item is selected | function({ item, key, selectedKeys }) | none |
+| overflowedIndicator | Customized icon when menu collapsed | ReactNode | - |
 
 > More options in [rc-menu](https://github.com/react-component/menu#api)
 
@@ -55,6 +56,7 @@ More layouts with navigation: [layout](/components/layout).
 | ----- | ----------- | ---- | ------------- |
 | disabled | whether menu item is disabled or not | boolean | false |
 | key | unique id of the menu item | string |  |
+| title | set display title for collapsed item | string |  |
 
 ### Menu.SubMenu
 

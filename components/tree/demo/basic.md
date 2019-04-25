@@ -2,7 +2,7 @@
 order: 0
 title:
   zh-CN: 基本
-  en-US: basic
+  en-US: Basic
 ---
 
 ## zh-CN
@@ -16,7 +16,7 @@ The most basic usage, tell you how to use checkable, selectable, disabled, defau
 ````jsx
 import { Tree } from 'antd';
 
-const TreeNode = Tree.TreeNode;
+const { TreeNode } = Tree;
 
 class Demo extends React.Component {
   onSelect = (selectedKeys, info) => {

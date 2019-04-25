@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-Setting `itemLayout` property with `vertical` to create a vertical list.
+Set the `itemLayout` property to `vertical` to create a vertical list.
 
 ````jsx
 import { List, Avatar, Icon } from 'antd';
@@ -61,5 +61,6 @@ ReactDOM.render(
       </List.Item>
     )}
   />,
-  mountNode);
+  mountNode
+);
 ````

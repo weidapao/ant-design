@@ -7,11 +7,11 @@ title:
 
 ## zh-CN
 
-平滑、自然的卸载提示
+平滑、自然的卸载提示。
 
 ## en-US
 
-Smoothly and unaffectedly unmount Alert.
+Smoothly unmount Alert upon close.
 
 ````jsx
 import { Alert } from 'antd';
@@ -46,5 +46,6 @@ class App extends React.Component {
 
 ReactDOM.render(
   <App />,
-  mountNode);
+  mountNode
+);
 ````

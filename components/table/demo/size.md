@@ -11,7 +11,7 @@ title:
 
 ## en-US
 
-Two compacted table size: `middle` and `small`, `small` size is used in Modal only.
+There are two compacted table sizes: `middle` and `small`. The `small` size is used in Modals only.
 
 ````jsx
 import { Table } from 'antd';
@@ -50,7 +50,8 @@ ReactDOM.render(
     <h4>Small size table</h4>
     <Table columns={columns} dataSource={data} size="small" />
   </div>,
-  mountNode);
+  mountNode
+);
 ````
 
 <style>#components-table-demo-size h4 { margin-bottom: 16px; }</style>
